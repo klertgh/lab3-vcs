@@ -66,5 +66,34 @@ namespace lab33
 
             return table;
         }
+
+        private void btnBuildGasChart_Click(object sender, EventArgs e)
+        {
+            if (_gasRecords.Count == 0)
+            {
+                MessageBox.Show("Сначала загрузите файл.");
+                return;
+            }
+
+            chartGas.Series.Clear();
+
+            foreach (var gasName in _gasRecords.First().GasValues.Keys)
+            {
+                var series = new System.Windows.Forms.DataVisualization.Charting.Series(gasName);
+
+                series.ChartType =
+                    System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+                foreach (var record in _gasRecords)
+                {
+                    series.Points.AddXY(
+                        record.Year,
+                        record.GasValues[gasName]
+                    );
+                }
+
+                chartGas.Series.Add(series);
+            }
+        }
     }
 }

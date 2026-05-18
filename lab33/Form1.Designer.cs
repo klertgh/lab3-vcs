@@ -90,6 +90,10 @@
             // 
             // chartGas
             // 
+            chartArea1.AxisX.Title = "Год";
+            chartArea1.AxisY.Title = "Выбросы";
+            chartArea1.CursorX.IsUserEnabled = true;
+            chartArea1.CursorX.IsUserSelectionEnabled = true;
             chartArea1.Name = "ChartArea1";
             this.chartGas.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -154,6 +158,7 @@
             this.btnBuildGasChart.TabIndex = 1;
             this.btnBuildGasChart.Text = "Построить график";
             this.btnBuildGasChart.UseVisualStyleBackColor = true;
+            this.btnBuildGasChart.Click += new System.EventHandler(this.btnBuildGasChart_Click);
             // 
             // btnOpenGasFile
             // 
