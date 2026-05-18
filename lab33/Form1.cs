@@ -249,5 +249,33 @@ namespace lab33
 
             return table;
         }
+
+        private void btnBuildGdpChart_Click(object sender, EventArgs e)
+        {
+            if (_gdpRecords.Count == 0)
+            {
+                MessageBox.Show("Сначала загрузите файл.");
+                return;
+            }
+
+            chartGdp.Series.Clear();
+
+            var gdpSeries = new System.Windows.Forms.DataVisualization.Charting.Series("GDP");
+            gdpSeries.ChartType =
+                System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+            var gnpSeries = new System.Windows.Forms.DataVisualization.Charting.Series("GNP");
+            gnpSeries.ChartType =
+                System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+            foreach (var record in _gdpRecords)
+            {
+                gdpSeries.Points.AddXY(record.Year, record.Gdp);
+                gnpSeries.Points.AddXY(record.Year, record.Gnp);
+            }
+
+            chartGdp.Series.Add(gdpSeries);
+            chartGdp.Series.Add(gnpSeries);
+        }
     }
 }
