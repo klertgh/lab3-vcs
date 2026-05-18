@@ -19,6 +19,11 @@ namespace lab33
         private readonly GreenhouseGasService _gasService = new GreenhouseGasService();
         private List<GreenhouseGasRecord> _gasRecords = new List<GreenhouseGasRecord>();
         private readonly MovingAverageForecaster _forecaster = new MovingAverageForecaster();
+        private readonly GdpGnpService _gdpService = new GdpGnpService();
+        
+
+        private List<GdpGnpRecord> _gdpRecords = new List<GdpGnpRecord>();
+        
 
         private void btnOpenGasFile_Click(object sender, EventArgs e)
         {
@@ -188,6 +193,196 @@ namespace lab33
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     chartGas.SaveImage(
+                        dialog.FileName,
+                        System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
+
+                    MessageBox.Show("График успешно сохранен.");
+                }
+            }
+        }
+
+        private void btnOpenGdpFile_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        _gdpRecords = _gdpService.LoadFromCsv(dialog.FileName);
+
+                        gridGdpData.DataSource =
+                            ConvertGdpRecordsToTable(_gdpRecords);
+
+                        rtbGdpAnalysis.Text =
+                            _gdpService.AnalyzeGrowthAndDecline(_gdpRecords);
+
+                        btnBuildGdpChart.Enabled = true;
+                        btnForecastGdp.Enabled = true;
+                        btnExportGdpChart.Enabled = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка загрузки файла");
+                    }
+                }
+            }
+        }
+        private DataTable ConvertGdpRecordsToTable( List<GdpGnpRecord> records)
+        {
+            DataTable table = new DataTable();
+
+            table.Columns.Add("Year");
+            table.Columns.Add("GDP");
+            table.Columns.Add("GNP");
+
+            foreach (var record in records)
+            {
+                var row = table.NewRow();
+
+                row["Year"] = record.Year;
+                row["GDP"] = record.Gdp.ToString("N2");
+                row["GNP"] = record.Gnp.ToString("N2");
+
+                table.Rows.Add(row);
+            }
+
+            return table;
+        }
+
+        private void btnBuildGdpChart_Click(object sender, EventArgs e)
+        {
+            if (_gdpRecords.Count == 0)
+            {
+                MessageBox.Show("Сначала загрузите файл.");
+                return;
+            }
+
+            chartGdp.Series.Clear();
+
+            var gdpSeries = new System.Windows.Forms.DataVisualization.Charting.Series("GDP");
+            gdpSeries.ChartType =
+                System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+            var gnpSeries = new System.Windows.Forms.DataVisualization.Charting.Series("GNP");
+            gnpSeries.ChartType =
+                System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+            foreach (var record in _gdpRecords)
+            {
+                gdpSeries.Points.AddXY(record.Year, record.Gdp);
+                gnpSeries.Points.AddXY(record.Year, record.Gnp);
+            }
+
+            chartGdp.Series.Add(gdpSeries);
+            chartGdp.Series.Add(gnpSeries);
+        }
+
+        private void btnForecastGdp_Click(object sender, EventArgs e)
+        {
+            if (_gdpRecords.Count == 0)
+            {
+                MessageBox.Show("Сначала загрузите файл.");
+                return;
+            }
+
+            int forecastYears =
+                (int)numGdpForecastYears.Value;
+
+            int movingAverageWindow =
+                (int)numGdpMovingAverageWindow.Value;
+
+            if (movingAverageWindow <= 0 ||
+                movingAverageWindow > _gdpRecords.Count)
+            {
+                MessageBox.Show(
+                    "n должно быть больше 0 и не больше количества лет в данных.");
+
+                return;
+            }
+
+            chartGdp.Series.Remove(
+                chartGdp.Series.FindByName("GDP Forecast"));
+
+            chartGdp.Series.Remove(
+                chartGdp.Series.FindByName("GNP Forecast"));
+
+            var gdpValues =
+                _gdpRecords.Select(r => r.Gdp).ToList();
+
+            var gnpValues =
+                _gdpRecords.Select(r => r.Gnp).ToList();
+
+            var gdpForecast =
+                _forecaster.Forecast(
+                    gdpValues,
+                    movingAverageWindow,
+                    forecastYears);
+
+            var gnpForecast =
+                _forecaster.Forecast(
+                    gnpValues,
+                    movingAverageWindow,
+                    forecastYears);
+
+            int lastYear =
+                _gdpRecords.Last().Year;
+
+            var gdpForecastSeries =
+                new System.Windows.Forms.DataVisualization.Charting.Series(
+                    "GDP Forecast");
+
+            gdpForecastSeries.ChartType =
+                System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+            gdpForecastSeries.BorderDashStyle =
+                System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+
+            var gnpForecastSeries =
+                new System.Windows.Forms.DataVisualization.Charting.Series(
+                    "GNP Forecast");
+
+            gnpForecastSeries.ChartType =
+                System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+            gnpForecastSeries.BorderDashStyle =
+                System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+
+            for (int i = 0; i < forecastYears; i++)
+            {
+                int year = lastYear + i + 1;
+
+                gdpForecastSeries.Points.AddXY(
+                    year,
+                    gdpForecast[i]);
+
+                gnpForecastSeries.Points.AddXY(
+                    year,
+                    gnpForecast[i]);
+            }
+
+            chartGdp.Series.Add(gdpForecastSeries);
+            chartGdp.Series.Add(gnpForecastSeries);
+        }
+
+        private void btnExportGdpChart_Click(object sender, EventArgs e)
+        {
+            if (chartGdp.Series.Count == 0)
+            {
+                MessageBox.Show("Сначала постройте график.");
+                return;
+            }
+
+            using (SaveFileDialog dialog = new SaveFileDialog())
+            {
+                dialog.Filter = "PNG Image (*.png)|*.png";
+                dialog.FileName = "GdpGnpChart.png";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    chartGdp.SaveImage(
                         dialog.FileName,
                         System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
 
