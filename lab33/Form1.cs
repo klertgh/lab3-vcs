@@ -366,5 +366,29 @@ namespace lab33
             chartGdp.Series.Add(gdpForecastSeries);
             chartGdp.Series.Add(gnpForecastSeries);
         }
+
+        private void btnExportGdpChart_Click(object sender, EventArgs e)
+        {
+            if (chartGdp.Series.Count == 0)
+            {
+                MessageBox.Show("Сначала постройте график.");
+                return;
+            }
+
+            using (SaveFileDialog dialog = new SaveFileDialog())
+            {
+                dialog.Filter = "PNG Image (*.png)|*.png";
+                dialog.FileName = "GdpGnpChart.png";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    chartGdp.SaveImage(
+                        dialog.FileName,
+                        System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
+
+                    MessageBox.Show("График успешно сохранен.");
+                }
+            }
+        }
     }
 }
