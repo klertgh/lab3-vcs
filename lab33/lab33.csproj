@@ -53,6 +53,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GdpGnpRecord.cs" />
+    <Compile Include="GdpGnpService.cs" />
     <Compile Include="GreenhouseGasRecord.cs" />
     <Compile Include="GreenhouseGasService.cs" />
     <Compile Include="MovingAverageForecaster.cs" />

@@ -19,6 +19,9 @@ namespace lab33
         private readonly GreenhouseGasService _gasService = new GreenhouseGasService();
         private List<GreenhouseGasRecord> _gasRecords = new List<GreenhouseGasRecord>();
         private readonly MovingAverageForecaster _forecaster = new MovingAverageForecaster();
+        private readonly GdpGnpService _gdpService = new GdpGnpService();
+
+        private List<GdpGnpRecord> _gdpRecords = new List<GdpGnpRecord>();
 
         private void btnOpenGasFile_Click(object sender, EventArgs e)
         {
@@ -194,6 +197,57 @@ namespace lab33
                     MessageBox.Show("График успешно сохранен.");
                 }
             }
+        }
+
+        private void btnOpenGdpFile_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        _gdpRecords = _gdpService.LoadFromCsv(dialog.FileName);
+
+                        gridGdpData.DataSource =
+                            ConvertGdpRecordsToTable(_gdpRecords);
+
+                        rtbGdpAnalysis.Text =
+                            _gdpService.AnalyzeGrowthAndDecline(_gdpRecords);
+
+                        btnBuildGdpChart.Enabled = true;
+                        btnForecastGdp.Enabled = true;
+                        btnExportGdpChart.Enabled = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка загрузки файла");
+                    }
+                }
+            }
+        }
+        private DataTable ConvertGdpRecordsToTable( List<GdpGnpRecord> records)
+        {
+            DataTable table = new DataTable();
+
+            table.Columns.Add("Year");
+            table.Columns.Add("GDP");
+            table.Columns.Add("GNP");
+
+            foreach (var record in records)
+            {
+                var row = table.NewRow();
+
+                row["Year"] = record.Year;
+                row["GDP"] = record.Gdp;
+                row["GNP"] = record.Gnp;
+
+                table.Rows.Add(row);
+            }
+
+            return table;
         }
     }
 }
