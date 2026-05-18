@@ -159,5 +159,29 @@ namespace lab33
             rtbGasAnalysis.AppendText(
                 "\n\nПрогнозирование выполнено методом скользящей средней.");
         }
+
+        private void btnExportGasChart_Click(object sender, EventArgs e)
+        {
+            if (chartGas.Series.Count == 0)
+            {
+                MessageBox.Show("Сначала постройте график.");
+                return;
+            }
+
+            using (SaveFileDialog dialog = new SaveFileDialog())
+            {
+                dialog.Filter = "PNG Image (*.png)|*.png";
+                dialog.FileName = "GreenhouseGasChart.png";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    chartGas.SaveImage(
+                        dialog.FileName,
+                        System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
+
+                    MessageBox.Show("График успешно сохранен.");
+                }
+            }
+        }
     }
 }

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.rtbGasAnalysis = new System.Windows.Forms.RichTextBox();
@@ -97,20 +97,20 @@
             // 
             // chartGas
             // 
-            chartArea1.AxisX.Title = "Год";
-            chartArea1.AxisY.Title = "Выбросы";
-            chartArea1.CursorX.IsUserEnabled = true;
-            chartArea1.CursorX.IsUserSelectionEnabled = true;
-            chartArea1.Name = "ChartArea1";
-            this.chartGas.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartGas.Legends.Add(legend1);
+            chartArea2.AxisX.Title = "Год";
+            chartArea2.AxisY.Title = "Выбросы";
+            chartArea2.CursorX.IsUserEnabled = true;
+            chartArea2.CursorX.IsUserSelectionEnabled = true;
+            chartArea2.Name = "ChartArea1";
+            this.chartGas.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartGas.Legends.Add(legend2);
             this.chartGas.Location = new System.Drawing.Point(450, 105);
             this.chartGas.Name = "chartGas";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartGas.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartGas.Series.Add(series2);
             this.chartGas.Size = new System.Drawing.Size(676, 430);
             this.chartGas.TabIndex = 7;
             this.chartGas.Text = "chart1";
@@ -147,6 +147,7 @@
             this.btnExportGasChart.TabIndex = 3;
             this.btnExportGasChart.Text = "Экспорт графика";
             this.btnExportGasChart.UseVisualStyleBackColor = true;
+            this.btnExportGasChart.Click += new System.EventHandler(this.btnExportGasChart_Click);
             // 
             // btnForecastGas
             // 
