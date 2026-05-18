@@ -33,21 +33,21 @@
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btnOpenGasFile = new System.Windows.Forms.Button();
-            this.btnBuildGasChart = new System.Windows.Forms.Button();
-            this.btnForecastGas = new System.Windows.Forms.Button();
-            this.btnExportGasChart = new System.Windows.Forms.Button();
-            this.gridGasData = new System.Windows.Forms.DataGridView();
-            this.numGasForecastYears = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.chartGas = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.rtbGasAnalysis = new System.Windows.Forms.RichTextBox();
+            this.chartGas = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numGasForecastYears = new System.Windows.Forms.NumericUpDown();
+            this.gridGasData = new System.Windows.Forms.DataGridView();
+            this.btnExportGasChart = new System.Windows.Forms.Button();
+            this.btnForecastGas = new System.Windows.Forms.Button();
+            this.btnBuildGasChart = new System.Windows.Forms.Button();
+            this.btnOpenGasFile = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridGasData)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numGasForecastYears)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartGas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numGasForecastYears)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridGasData)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -79,75 +79,14 @@
             this.tabPage1.Text = "Парниковые газы";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // rtbGasAnalysis
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(733, 376);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "ВВП и ВНП";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // btnOpenGasFile
-            // 
-            this.btnOpenGasFile.Location = new System.Drawing.Point(25, 35);
-            this.btnOpenGasFile.Name = "btnOpenGasFile";
-            this.btnOpenGasFile.Size = new System.Drawing.Size(155, 55);
-            this.btnOpenGasFile.TabIndex = 0;
-            this.btnOpenGasFile.Text = "Открыть файл";
-            this.btnOpenGasFile.UseVisualStyleBackColor = true;
-            // 
-            // btnBuildGasChart
-            // 
-            this.btnBuildGasChart.Location = new System.Drawing.Point(194, 35);
-            this.btnBuildGasChart.Name = "btnBuildGasChart";
-            this.btnBuildGasChart.Size = new System.Drawing.Size(156, 55);
-            this.btnBuildGasChart.TabIndex = 1;
-            this.btnBuildGasChart.Text = "Построить график";
-            this.btnBuildGasChart.UseVisualStyleBackColor = true;
-            // 
-            // btnForecastGas
-            // 
-            this.btnForecastGas.Location = new System.Drawing.Point(365, 35);
-            this.btnForecastGas.Name = "btnForecastGas";
-            this.btnForecastGas.Size = new System.Drawing.Size(155, 55);
-            this.btnForecastGas.TabIndex = 2;
-            this.btnForecastGas.Text = "Сделать прогноз";
-            this.btnForecastGas.UseVisualStyleBackColor = true;
-            // 
-            // btnExportGasChart
-            // 
-            this.btnExportGasChart.Location = new System.Drawing.Point(663, 35);
-            this.btnExportGasChart.Name = "btnExportGasChart";
-            this.btnExportGasChart.Size = new System.Drawing.Size(155, 55);
-            this.btnExportGasChart.TabIndex = 3;
-            this.btnExportGasChart.Text = "Экспорт графика";
-            this.btnExportGasChart.UseVisualStyleBackColor = true;
-            // 
-            // gridGasData
-            // 
-            this.gridGasData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridGasData.Location = new System.Drawing.Point(25, 105);
-            this.gridGasData.Name = "gridGasData";
-            this.gridGasData.Size = new System.Drawing.Size(325, 290);
-            this.gridGasData.TabIndex = 4;
-            // 
-            // numGasForecastYears
-            // 
-            this.numGasForecastYears.Location = new System.Drawing.Point(526, 54);
-            this.numGasForecastYears.Name = "numGasForecastYears";
-            this.numGasForecastYears.Size = new System.Drawing.Size(120, 20);
-            this.numGasForecastYears.TabIndex = 5;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 409);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Результат анализа";
+            this.rtbGasAnalysis.Location = new System.Drawing.Point(25, 425);
+            this.rtbGasAnalysis.Name = "rtbGasAnalysis";
+            this.rtbGasAnalysis.ReadOnly = true;
+            this.rtbGasAnalysis.Size = new System.Drawing.Size(792, 72);
+            this.rtbGasAnalysis.TabIndex = 8;
+            this.rtbGasAnalysis.Text = "";
             // 
             // chartGas
             // 
@@ -165,14 +104,76 @@
             this.chartGas.TabIndex = 7;
             this.chartGas.Text = "chart1";
             // 
-            // rtbGasAnalysis
+            // label1
             // 
-            this.rtbGasAnalysis.Location = new System.Drawing.Point(25, 425);
-            this.rtbGasAnalysis.Name = "rtbGasAnalysis";
-            this.rtbGasAnalysis.ReadOnly = true;
-            this.rtbGasAnalysis.Size = new System.Drawing.Size(792, 72);
-            this.rtbGasAnalysis.TabIndex = 8;
-            this.rtbGasAnalysis.Text = "";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(22, 409);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(104, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Результат анализа";
+            // 
+            // numGasForecastYears
+            // 
+            this.numGasForecastYears.Location = new System.Drawing.Point(526, 54);
+            this.numGasForecastYears.Name = "numGasForecastYears";
+            this.numGasForecastYears.Size = new System.Drawing.Size(120, 20);
+            this.numGasForecastYears.TabIndex = 5;
+            // 
+            // gridGasData
+            // 
+            this.gridGasData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridGasData.Location = new System.Drawing.Point(25, 105);
+            this.gridGasData.Name = "gridGasData";
+            this.gridGasData.Size = new System.Drawing.Size(325, 290);
+            this.gridGasData.TabIndex = 4;
+            // 
+            // btnExportGasChart
+            // 
+            this.btnExportGasChart.Location = new System.Drawing.Point(663, 35);
+            this.btnExportGasChart.Name = "btnExportGasChart";
+            this.btnExportGasChart.Size = new System.Drawing.Size(155, 55);
+            this.btnExportGasChart.TabIndex = 3;
+            this.btnExportGasChart.Text = "Экспорт графика";
+            this.btnExportGasChart.UseVisualStyleBackColor = true;
+            // 
+            // btnForecastGas
+            // 
+            this.btnForecastGas.Location = new System.Drawing.Point(365, 35);
+            this.btnForecastGas.Name = "btnForecastGas";
+            this.btnForecastGas.Size = new System.Drawing.Size(155, 55);
+            this.btnForecastGas.TabIndex = 2;
+            this.btnForecastGas.Text = "Сделать прогноз";
+            this.btnForecastGas.UseVisualStyleBackColor = true;
+            // 
+            // btnBuildGasChart
+            // 
+            this.btnBuildGasChart.Location = new System.Drawing.Point(194, 35);
+            this.btnBuildGasChart.Name = "btnBuildGasChart";
+            this.btnBuildGasChart.Size = new System.Drawing.Size(156, 55);
+            this.btnBuildGasChart.TabIndex = 1;
+            this.btnBuildGasChart.Text = "Построить график";
+            this.btnBuildGasChart.UseVisualStyleBackColor = true;
+            // 
+            // btnOpenGasFile
+            // 
+            this.btnOpenGasFile.Location = new System.Drawing.Point(25, 35);
+            this.btnOpenGasFile.Name = "btnOpenGasFile";
+            this.btnOpenGasFile.Size = new System.Drawing.Size(155, 55);
+            this.btnOpenGasFile.TabIndex = 0;
+            this.btnOpenGasFile.Text = "Открыть файл";
+            this.btnOpenGasFile.UseVisualStyleBackColor = true;
+            this.btnOpenGasFile.Click += new System.EventHandler(this.btnOpenGasFile_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(824, 545);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "ВВП и ВНП";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -185,9 +186,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridGasData)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numGasForecastYears)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartGas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numGasForecastYears)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridGasData)).EndInit();
             this.ResumeLayout(false);
 
         }

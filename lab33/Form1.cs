@@ -16,5 +16,55 @@ namespace lab33
         {
             InitializeComponent();
         }
+        private readonly GreenhouseGasService _gasService = new GreenhouseGasService();
+        private List<GreenhouseGasRecord> _gasRecords = new List<GreenhouseGasRecord>();
+
+        private void btnOpenGasFile_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        _gasRecords = _gasService.LoadFromCsv(dialog.FileName);
+                        gridGasData.DataSource = ConvertGasRecordsToTable(_gasRecords);
+                        rtbGasAnalysis.Text = "Файл успешно загружен.";
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка загрузки файла");
+                    }
+                }
+            }
+        }
+        private DataTable ConvertGasRecordsToTable(List<GreenhouseGasRecord> records)
+        {
+            DataTable table = new DataTable();
+
+            table.Columns.Add("Year");
+
+            foreach (var gasName in records.First().GasValues.Keys)
+            {
+                table.Columns.Add(gasName);
+            }
+
+            foreach (var record in records)
+            {
+                var row = table.NewRow();
+                row["Year"] = record.Year;
+
+                foreach (var gas in record.GasValues)
+                {
+                    row[gas.Key] = gas.Value;
+                }
+
+                table.Rows.Add(row);
+            }
+
+            return table;
+        }
     }
 }
