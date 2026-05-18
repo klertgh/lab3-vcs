@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
@@ -147,21 +147,21 @@
             // 
             // chartGas
             // 
-            chartArea1.AxisX.Title = "Год";
-            chartArea1.AxisY.Title = "Выбросы";
-            chartArea1.CursorX.IsUserEnabled = true;
-            chartArea1.CursorX.IsUserSelectionEnabled = true;
-            chartArea1.Name = "ChartArea1";
-            this.chartGas.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartGas.Legends.Add(legend1);
+            chartArea4.AxisX.Title = "Год";
+            chartArea4.AxisY.Title = "Выбросы";
+            chartArea4.CursorX.IsUserEnabled = true;
+            chartArea4.CursorX.IsUserSelectionEnabled = true;
+            chartArea4.Name = "ChartArea1";
+            this.chartGas.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartGas.Legends.Add(legend4);
             this.chartGas.Location = new System.Drawing.Point(600, 129);
             this.chartGas.Margin = new System.Windows.Forms.Padding(4);
             this.chartGas.Name = "chartGas";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartGas.Series.Add(series1);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chartGas.Series.Add(series4);
             this.chartGas.Size = new System.Drawing.Size(901, 529);
             this.chartGas.TabIndex = 7;
             this.chartGas.Text = "chart1";
@@ -279,20 +279,20 @@
             // 
             // chartGdp
             // 
-            chartArea2.AxisX.Title = "Год";
-            chartArea2.AxisY.Title = "Значение";
-            chartArea2.CursorX.IsUserEnabled = true;
-            chartArea2.CursorX.IsUserSelectionEnabled = true;
-            chartArea2.Name = "ChartArea1";
-            this.chartGdp.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartGdp.Legends.Add(legend2);
+            chartArea3.AxisX.Title = "Год";
+            chartArea3.AxisY.Title = "Значение";
+            chartArea3.CursorX.IsUserEnabled = true;
+            chartArea3.CursorX.IsUserSelectionEnabled = true;
+            chartArea3.Name = "ChartArea1";
+            this.chartGdp.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartGdp.Legends.Add(legend3);
             this.chartGdp.Location = new System.Drawing.Point(509, 142);
             this.chartGdp.Name = "chartGdp";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartGdp.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chartGdp.Series.Add(series3);
             this.chartGdp.Size = new System.Drawing.Size(479, 445);
             this.chartGdp.TabIndex = 6;
             this.chartGdp.Text = "chart1";
@@ -334,6 +334,7 @@
             this.btnForecastGdp.TabIndex = 2;
             this.btnForecastGdp.Text = "Сделать прогноз";
             this.btnForecastGdp.UseVisualStyleBackColor = true;
+            this.btnForecastGdp.Click += new System.EventHandler(this.btnForecastGdp_Click);
             // 
             // btnBuildGdpChart
             // 
