@@ -13,7 +13,20 @@ namespace lab33
             int movingAverageWindow,
             int forecastCount)
         {
-            return new List<double>();
+            List<double> result = new List<double>(values);
+
+            for (int i = 0; i < forecastCount; i++)
+            {
+                double average =
+                    result
+                    .Skip(result.Count - movingAverageWindow)
+                    .Take(movingAverageWindow)
+                    .Average();
+
+                result.Add(average);
+            }
+
+            return result;
         }
     }
 }

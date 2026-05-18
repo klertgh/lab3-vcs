@@ -18,6 +18,7 @@ namespace lab33
         }
         private readonly GreenhouseGasService _gasService = new GreenhouseGasService();
         private List<GreenhouseGasRecord> _gasRecords = new List<GreenhouseGasRecord>();
+        private readonly MovingAverageForecaster _forecaster = new MovingAverageForecaster();
 
         private void btnOpenGasFile_Click(object sender, EventArgs e)
         {
@@ -94,6 +95,69 @@ namespace lab33
 
                 chartGas.Series.Add(series);
             }
+        }
+
+        private void btnForecastGas_Click(object sender, EventArgs e)
+        {
+            if (_gasRecords.Count == 0)
+            {
+                MessageBox.Show("Сначала загрузите файл.");
+                return;
+            }
+
+            int forecastYears = (int)numGasForecastYears.Value;
+
+            int movingAverageWindow =
+                (int)numGasMovingAverageWindow.Value;
+
+            if (movingAverageWindow <= 0 ||
+                movingAverageWindow > _gasRecords.Count)
+            {
+                MessageBox.Show(
+                    "n должно быть больше 0 и не больше количества лет в данных.");
+
+                return;
+            }
+
+            foreach (var gasName in _gasRecords.First().GasValues.Keys)
+            {
+                List<double> values =
+                    _gasRecords
+                    .Select(r => r.GasValues[gasName])
+                    .ToList();
+
+                List<double> forecast =
+                    _forecaster.Forecast(
+                        values,
+                        movingAverageWindow,
+                        forecastYears);
+
+                var forecastSeries =
+                    new System.Windows.Forms.DataVisualization.Charting.Series(
+                        gasName + " Forecast");
+
+                forecastSeries.ChartType =
+                    System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+
+                forecastSeries.BorderDashStyle =
+                    System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+
+                forecastSeries.BorderWidth = 3;
+
+                int startYear = _gasRecords.First().Year;
+
+                for (int i = 0; i < forecast.Count; i++)
+                {
+                    forecastSeries.Points.AddXY(
+                        startYear + i,
+                        forecast[i]);
+                }
+
+                chartGas.Series.Add(forecastSeries);
+            }
+
+            rtbGasAnalysis.AppendText(
+                "\n\nПрогнозирование выполнено методом скользящей средней.");
         }
     }
 }
