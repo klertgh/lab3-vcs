@@ -33,6 +33,10 @@ namespace lab33
                         _gasRecords = _gasService.LoadFromCsv(dialog.FileName);
                         gridGasData.DataSource = ConvertGasRecordsToTable(_gasRecords);
                         rtbGasAnalysis.Text = _gasService.AnalyzeDecrease(_gasRecords);
+
+                        btnBuildGasChart.Enabled = true;
+                        btnForecastGas.Enabled = true;
+                        btnExportGasChart.Enabled = true;
                     }
                     catch (Exception ex)
                     {
@@ -117,6 +121,14 @@ namespace lab33
                     "n должно быть больше 0 и не больше количества лет в данных.");
 
                 return;
+            }
+
+            for (int i = chartGas.Series.Count - 1; i >= 0; i--)
+            {
+                if (chartGas.Series[i].Name.Contains("Forecast"))
+                {
+                    chartGas.Series.RemoveAt(i);
+                }
             }
 
             foreach (var gasName in _gasRecords.First().GasValues.Keys)
