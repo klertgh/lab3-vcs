@@ -31,7 +31,7 @@ namespace lab33
                     {
                         _gasRecords = _gasService.LoadFromCsv(dialog.FileName);
                         gridGasData.DataSource = ConvertGasRecordsToTable(_gasRecords);
-                        rtbGasAnalysis.Text = "Файл успешно загружен.";
+                        rtbGasAnalysis.Text = _gasService.AnalyzeDecrease(_gasRecords);
                     }
                     catch (Exception ex)
                     {

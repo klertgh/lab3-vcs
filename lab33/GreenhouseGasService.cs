@@ -51,7 +51,41 @@ namespace lab33
 
         public string AnalyzeDecrease(List<GreenhouseGasRecord> records)
         {
-            return "";
+            if (records == null || records.Count < 2)
+                return "Недостаточно данных для анализа.";
+
+            var first = records.First();
+            var last = records.Last();
+
+            string maxDecreaseGas = "";
+            string minDecreaseGas = "";
+
+            double maxDecrease = double.MinValue;
+            double minDecrease = double.MaxValue;
+
+            foreach (var gas in first.GasValues.Keys)
+            {
+                double startValue = first.GasValues[gas];
+                double endValue = last.GasValues[gas];
+                double decrease = startValue - endValue;
+
+                if (decrease > maxDecrease)
+                {
+                    maxDecrease = decrease;
+                    maxDecreaseGas = gas;
+                }
+
+                if (decrease < minDecrease)
+                {
+                    minDecrease = decrease;
+                    minDecreaseGas = gas;
+                }
+            }
+
+            return
+                $"Анализ снижения выбросов за 15 лет:\n" +
+                $"Больше всего снизились выбросы газа: {maxDecreaseGas} на {maxDecrease:F2}\n" +
+                $"Меньше всего снизились выбросы газа: {minDecreaseGas} на {minDecrease:F2}";
         }
     }
 }
