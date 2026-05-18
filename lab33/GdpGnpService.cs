@@ -68,8 +68,11 @@ namespace lab33
             string indicatorName,
             Func<GdpGnpRecord, double> selector)
         {
-            double maxGrowth = double.MinValue;
-            double maxDecline = double.MaxValue;
+            double maxGrowthPercent = double.MinValue;
+            double maxDeclinePercent = double.MaxValue;
+
+            double maxGrowthAbsolute = 0;
+            double maxDeclineAbsolute = 0;
 
             int maxGrowthYear = 0;
             int maxDeclineYear = 0;
@@ -82,25 +85,30 @@ namespace lab33
                 if (previous == 0)
                     continue;
 
-                double percentChange = (current - previous) / previous * 100;
+                double absoluteChange = current - previous;
+                double percentChange = absoluteChange / previous * 100;
 
-                if (percentChange > maxGrowth)
+                if (percentChange > maxGrowthPercent)
                 {
-                    maxGrowth = percentChange;
+                    maxGrowthPercent = percentChange;
+                    maxGrowthAbsolute = absoluteChange;
                     maxGrowthYear = records[i].Year;
                 }
 
-                if (percentChange < maxDecline)
+                if (percentChange < maxDeclinePercent)
                 {
-                    maxDecline = percentChange;
+                    maxDeclinePercent = percentChange;
+                    maxDeclineAbsolute = absoluteChange;
                     maxDeclineYear = records[i].Year;
                 }
             }
 
             return
                 $"{indicatorName}:\n" +
-                $"Максимальный процент роста: {maxGrowth:F2}% в {maxGrowthYear} году\n" +
-                $"Максимальный процент падения: {maxDecline:F2}% в {maxDeclineYear} году\n";
+                $"Максимальный рост: {maxGrowthPercent:F2}% в {maxGrowthYear} году\n" +
+                $"Абсолютное изменение при росте: {maxGrowthAbsolute:N2}\n" +
+                $"Максимальное падение: {maxDeclinePercent:F2}% в {maxDeclineYear} году\n" +
+                $"Абсолютное изменение при падении: {maxDeclineAbsolute:N2}\n";
         }
     }
 }

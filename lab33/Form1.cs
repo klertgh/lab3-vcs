@@ -241,8 +241,8 @@ namespace lab33
                 var row = table.NewRow();
 
                 row["Year"] = record.Year;
-                row["GDP"] = record.Gdp;
-                row["GNP"] = record.Gnp;
+                row["GDP"] = record.Gdp.ToString("N2");
+                row["GNP"] = record.Gnp.ToString("N2");
 
                 table.Rows.Add(row);
             }
